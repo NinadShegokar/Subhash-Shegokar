@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Subhash Shegokar - Fine Artist</title>
+    <link rel="icon" href="assets/favicon.png" type="image/png" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      .font-playfair {
+        font-family: "Playfair Display", serif;
+      }
+      .font-inter {
+        font-family: "Inter", sans-serif;
+      }
+
+      .fade-in {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      }
+
+      .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .stagger-1 {
+        transition-delay: 0.1s;
+      }
+      .stagger-2 {
+        transition-delay: 0.2s;
+      }
+      .stagger-3 {
+        transition-delay: 0.3s;
+      }
+      .stagger-4 {
+        transition-delay: 0.4s;
+      }
+
+      .profile-image {
+        border-radius: 50%;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+      }
+
+      .profile-image:hover {
+        transform: scale(1.05);
+      }
+
+      .contact-link {
+        transition: all 0.3s ease;
+      }
+
+      .contact-link:hover {
+        transform: translateY(-2px);
+        color: #6366f1;
+      }
+
+      .navbar {
+        backdrop-filter: blur(10px);
+        background: rgba(255, 255, 255, 0.9);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      }
+
+      .nav-link {
+        transition: color 0.3s ease;
+      }
+
+      .nav-link:hover {
+        color: #6366f1;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      /* Artistic background with improved gradient and added texture */
+      body {
+        background: linear-gradient(to bottom, #fefefe 0%, #e0e7ff 100%);
+        position: relative;
+        min-height: 100vh;
+        font-family: "Inter", sans-serif;
+        line-height: 1.6;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: radial-gradient(
+            circle at 20% 50%,
+            rgba(99, 102, 241, 0.05) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 80% 20%,
+            rgba(168, 85, 247, 0.05) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 40% 80%,
+            rgba(34, 197, 94, 0.04) 0%,
+            transparent 50%
+          );
+        background-size: 900px 900px, 700px 700px, 500px 500px;
+        animation: float 30s ease-in-out infinite;
+        z-index: -2;
+      }
+
+      body::after {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.01'/%3E%3C/svg%3E");
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px) rotate(0deg);
+        }
+        50% {
+          transform: translateY(-10px) rotate(180deg);
+        }
+      }
+
+      section {
+        padding-top: 4rem; /* Reduced padding */
+        padding-bottom: 4rem; /* Reduced padding */
+      }
+
+      #gallery {
+        padding-top: 5rem; /* Adjusted for gallery specifically */
+        padding-bottom: 5rem; /* Adjusted for gallery specifically */
+      }
+
+      /* Gallery specific styles for enhanced appearance */
+      .category-card {
+        position: relative;
+        overflow: hidden;
+        isolation: isolate; /* To ensure z-index context for pseudo-elements */
+      }
+
+      .category-card img {
+        transition: transform 0.4s ease-in-out;
+      }
+
+      .category-card:hover img {
+        transform: scale(1.08);
+      }
+
+      .category-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to top,
+          rgba(0, 0, 0, 0.7) 0%,
+          rgba(0, 0, 0, 0) 50%,
+          rgba(0, 0, 0, 0) 100%
+        );
+        z-index: 1;
+        opacity: 1;
+        transition: opacity 0.3s ease;
+      }
+
+      .category-card:hover::before {
+        opacity: 0.8; /* Darken slightly more on hover */
+      }
+
+      .category-content {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 1.5rem;
+        z-index: 2;
+        color: white;
+        transition: transform 0.3s ease;
+      }
+
+      .category-card:hover .category-content {
+        transform: translateY(-5px); /* Lift content slightly on hover */
+      }
+
+      .category-content h3 {
+        font-family: "Playfair Display", serif;
+      }
+
+      .image-item img {
+        transition: transform 0.3s ease-in-out;
+      }
+
+      .image-item:hover img {
+        transform: scale(1.05);
+      }
+
+      .image-item::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.2);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .image-item:hover::after {
+        opacity: 1;
+      }
+
+      .image-item .hover-icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: 3; /* Ensure icon is above overlay */
+      }
+
+      .image-item:hover .hover-icon {
+        opacity: 1;
+      }
+
+      /* Fallback for broken images in grid */
+      .image-placeholder {
+        display: flex; /* Always flex for centering */
+        background-color: #f0f0f0;
+        color: #a0a0a0;
+        font-size: 0.9rem;
+        text-align: center;
+        padding: 1rem;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        position: absolute; /* To cover the whole image area */
+        top: 0;
+        left: 0;
+      }
+
+      /* Vertical Timeline Specific Styles (Revised for attractiveness and less length) */
+      .timeline {
+        position: relative;
+        max-width: 900px; /* Reduced max-width for a more condensed look */
+        margin: 0 auto;
+        padding: 0 20px; /* Added horizontal padding */
+      }
+
+      .timeline::after {
+        content: "";
+        position: absolute;
+        width: 4px; /* Thinner line */
+        background-color: #a5b4fc; /* Lighter indigo for the line */
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        margin-left: -2px; /* Center the thinner line */
+        border-radius: 2px;
+        z-index: 0; /* Ensure line is behind content */
+      }
+
+      .timeline-item {
+        padding: 15px 0; /* Adjusted vertical padding */
+        position: relative;
+        width: 50%;
+        opacity: 0; /* Start hidden for staggered animation */
+        transform: translateY(20px); /* Small initial shift for animation */
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+      }
+
+      .timeline-item.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .timeline-item::after {
+        content: "";
+        position: absolute;
+        width: 18px; /* Smaller circle */
+        height: 18px; /* Smaller circle */
+        right: -10px; /* Adjust based on new circle size */
+        background-color: #6366f1; /* Main indigo for circles */
+        border: 3px solid #e0e7ff; /* Lighter border for contrast */
+        top: 20px; /* Adjust to center vertically */
+        border-radius: 50%;
+        z-index: 1;
+        box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2); /* Subtle glow */
+      }
+
+      .timeline-item.left {
+        left: 0;
+        padding-right: 40px; /* Adjusted padding */
+        text-align: right; /* Align text to the right for left items */
+      }
+
+      .timeline-item.right {
+        left: 50%;
+        padding-left: 40px; /* Adjusted padding */
+        text-align: left; /* Align text to the left for right items */
+      }
+
+      .timeline-item.left::before {
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        top: 25px; /* Adjust to align with circle */
+        z-index: 1;
+        right: 28px; /* Position the arrow correctly */
+        border: medium solid white;
+        border-width: 8px 0 8px 8px; /* Smaller arrow */
+        border-color: transparent transparent transparent white;
+      }
+
+      .timeline-item.right::before {
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        top: 25px; /* Adjust to align with circle */
+        z-index: 1;
+        left: 28px; /* Position the arrow correctly */
+        border: medium solid white;
+        border-width: 8px 8px 8px 0; /* Smaller arrow */
+        border-color: transparent white transparent transparent;
+      }
+
+      .timeline-item.right::after {
+        left: -8px; /* Adjust based on new circle size */
+      }
+
+      .timeline-content {
+        padding: 15px 20px; /* Slightly reduced padding */
+        background-color: white;
+        position: relative;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        line-height: 1.4; /* Tighter line height for less vertical space */
+      }
+
+      .timeline-content:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+      }
+
+      .timeline-year-text {
+        font-family: "Playfair Display", serif;
+        font-size: 1.5rem; /* text-2xl */
+        font-weight: 700; /* font-bold */
+        color: #4f46e5; /* indigo-700 */
+        margin-bottom: 0.4rem;
+      }
+
+      .timeline-description-text {
+        font-size: 0.95rem; /* Slightly smaller text */
+        color: #4b5563; /* gray-700 */
+      }
+
+      /* Media queries for responsiveness */
+      @media screen and (max-width: 768px) {
+        .timeline::after {
+          left: 18px; /* Adjust line position for mobile */
+        }
+
+        .timeline-item {
+          width: 100%;
+          padding-left: 55px; /* Space for the line and circle */
+          padding-right: 15px;
+          text-align: left; /* All items align left on mobile */
+        }
+
+        .timeline-item::before {
+          left: 45px; /* Adjust arrow position for mobile */
+          border-width: 8px 8px 8px 0; /* Ensure arrow points right */
+          border-color: transparent white transparent transparent;
+        }
+
+        .timeline-item.right {
+          left: 0%; /* Ensure right items also align left */
+        }
+
+        .timeline-item.left::after,
+        .timeline-item.right::after {
+          left: 8px; /* Adjust circle position for mobile */
+        }
+      }
+    </style>
+  </head>
+  <body class="font-inter">
+    <nav class="navbar fixed top-0 left-0 right-0 z-50 py-4">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center">
+          <div class="text-xl font-semibold text-gray-900">
+            Subhash Shegokar
+          </div>
+          <div class="hidden md:flex space-x-8">
+            <a
+              href="#hero"
+              class="nav-link text-gray-700 hover:text-indigo-600 font-medium"
+              >Home</a
+            >
+            <a
+              href="#gallery"
+              class="nav-link text-gray-700 hover:text-indigo-600 font-medium"
+              >Gallery</a
+            >
+            <a
+              href="#exhibitions"
+              class="nav-link text-gray-700 hover:text-indigo-600 font-medium"
+              >Exhibitions</a
+            >
+            <a
+              href="#contact"
+              class="nav-link text-gray-700 hover:text-indigo-600 font-medium"
+              >Contact</a
+            >
+          </div>
+          <div class="md:hidden">
+            <button class="text-gray-700 hover:text-indigo-600">
+              <i class="fas fa-bars text-xl"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section
+      id="hero"
+      class="min-h-screen flex items-center justify-center pt-20 pb-16 px-4 sm:px-6 lg:px-8 relative"
+    >
+      <div class="max-w-6xl mx-auto w-full relative z-10">
+        <div
+          class="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-12"
+        >
+          <div class="flex-shrink-0 flex justify-center order-2 lg:order-1">
+            <div class="fade-in stagger-1">
+              <img
+                src="assets/dp.jpg"
+                alt="Subhash Shegokar - Fine Artist"
+                class="profile-image w-80 h-80 object-cover"
+              />
+            </div>
+          </div>
+
+          <div
+            class="flex-1 text-center lg:text-left flex flex-col items-center lg:items-start max-w-2xl order-1 lg:order-2"
+          >
+            <h1
+              class="fade-in stagger-2 text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-4 tracking-tight"
+            >
+              SUBHASH SHEGOKAR
+            </h1>
+
+            <h2
+              class="fade-in stagger-3 text-xl sm:text-2xl text-gray-600 mb-8 font-medium"
+            >
+              Fine Artist | Oil, Acrylic, and Mixed Media
+            </h2>
+
+            <blockquote
+              class="fade-in stagger-4 font-playfair text-lg sm:text-xl text-gray-700 italic leading-relaxed mb-10"
+            >
+              "With each brush stroke, I take viewers to an era where art was a
+              sacred language — a bridge between the divine and the human. My
+              bold interpretations breathe new life into these timeless icons,
+              making them accessible to contemporary eyes."
+            </blockquote>
+
+            <div
+              class="fade-in stagger-4 flex flex-wrap justify-center lg:justify-start gap-6 text-gray-600"
+            >
+              <a
+                href="tel:8652842802"
+                class="contact-link flex items-center gap-2 hover:text-indigo-600"
+              >
+                <i class="fas fa-phone text-lg"></i>
+                <span class="font-medium">8652842802</span>
+              </a>
+
+              <a
+                href="mailto:subhashshegokar65@gmail.com"
+                class="contact-link flex items-center gap-2 hover:text-indigo-600"
+              >
+                <i class="fas fa-envelope text-lg"></i>
+                <span class="font-medium">Email</span>
+              </a>
+
+              <a
+                href="https://www.instagram.com/subhashshegokar/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="contact-link flex items-center gap-2 hover:text-indigo-600"
+              >
+                <i class="fab fa-instagram text-lg"></i>
+                <span class="font-medium">Instagram</span>
+              </a>
+
+              <a
+                href="https://in.linkedin.com/in/subhash-shegokar-b7b1aa31"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="contact-link flex items-center gap-2 hover:text-indigo-600"
+              >
+                <i class="fab fa-linkedin text-lg"></i>
+                <span class="font-medium">LinkedIn</span>
+              </a>
+
+              <a
+                href="https://www.facebook.com/subhash.shegokar/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="contact-link flex items-center gap-2 hover:text-indigo-600"
+              >
+                <i class="fab fa-facebook text-lg"></i>
+                <span class="font-medium">Facebook</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="gallery" class="py-20 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-16">
+          <h2
+            class="fade-in text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight"
+          >
+            Gallery
+          </h2>
+          <p
+            class="fade-in stagger-1 text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto"
+          >
+            Explore my artistic journey through various mediums and styles, from
+            traditional oil paintings to contemporary mixed media works.
+          </p>
+        </div>
+
+        <div
+          id="categoryContainer"
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-16"
+        ></div>
+
+        <div id="imageGridContainer" class="hidden">
+          <div class="mb-8">
+            <button
+              onclick="closeCategory()"
+              class="inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm rounded-lg shadow-md hover:shadow-lg text-gray-700 hover:text-indigo-600 transition-all duration-300 border border-gray-200"
+            >
+              <i class="fas fa-arrow-left"></i>
+              <span class="font-medium">Back to Categories</span>
+            </button>
+          </div>
+
+          <div class="text-center mb-12">
+            <h3
+              id="categoryTitle"
+              class="text-3xl font-bold text-gray-900 mb-4"
+            ></h3>
+            <div class="w-20 h-1 bg-indigo-600 mx-auto rounded-full"></div>
+          </div>
+
+          <div
+            id="imageGrid"
+            class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+          ></div>
+        </div>
+
+        <div
+          id="lightbox"
+          class="lightbox fixed inset-0 bg-black bg-opacity-95 z-50 hidden flex items-center justify-center p-4"
+        >
+          <div class="relative max-w-7xl max-h-full">
+            <button
+              onclick="closeLightbox()"
+              class="absolute top-4 right-4 text-white hover:text-gray-300 z-10 w-10 h-10 flex items-center justify-center bg-black/50 rounded-full transition-all duration-300"
+            >
+              <i class="fas fa-times text-xl"></i>
+            </button>
+            <img
+              id="lightboxImage"
+              src=""
+              alt=""
+              class="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
+            />
+            <div class="absolute bottom-4 left-4 text-white">
+              <p
+                id="lightboxCaption"
+                class="text-lg font-medium bg-black/50 px-4 py-2 rounded-lg"
+              ></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="exhibitions" class="py-20 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-16">
+          <h2
+            class="fade-in text-4xl sm:text-5xl font-bold text-gray-900 mb-4 tracking-tight"
+          >
+            Exhibitions Timeline
+          </h2>
+          <p
+            class="fade-in stagger-1 text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto"
+          >
+            A chronological overview of my past and upcoming art exhibitions.
+          </p>
+        </div>
+
+        <div id="timeline" class="timeline"></div>
+      </div>
+    </section>
+
+    <section id="contact" class="py-20 px-4 sm:px-6 lg:px-8 text-center">
+      <div class="max-w-4xl mx-auto">
+        <h2
+          class="text-4xl sm:text-5xl font-bold text-gray-900 mb-6 tracking-tight"
+        >
+          Get in Touch
+        </h2>
+        <p class="text-lg sm:text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
+          I'd love to hear from you! Whether it's about a painting, a
+          commission, or just to say hello, feel to reach out.
+        </p>
+        <div
+          class="flex flex-wrap justify-center gap-8 text-gray-700 text-lg sm:text-xl"
+        >
+          <a
+            href="tel:8652842802"
+            class="contact-link flex items-center gap-3 hover:text-indigo-600 transform hover:scale-105 transition-all duration-300"
+          >
+            <i class="fas fa-phone text-2xl"></i>
+            <span class="font-medium">8652842802</span>
+          </a>
+
+          <a
+            href="mailto:subhashshegokar65@gmail.com"
+            class="contact-link flex items-center gap-3 hover:text-indigo-600 transform hover:scale-105 transition-all duration-300"
+          >
+            <i class="fas fa-envelope text-2xl"></i>
+            <span class="font-medium">Email</span>
+          </a>
+
+          <a
+            href="https://www.instagram.com/subhashshegokar/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="contact-link flex items-center gap-3 hover:text-indigo-600 transform hover:scale-105 transition-all duration-300"
+          >
+            <i class="fab fa-instagram text-2xl"></i>
+            <span class="font-medium">Instagram</span>
+          </a>
+
+          <a
+            href="https://in.linkedin.com/in/subhash-shegokar-b7b1aa31"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="contact-link flex items-center gap-3 hover:text-indigo-600 transform hover:scale-105 transition-all duration-300"
+          >
+            <i class="fab fa-linkedin text-2xl"></i>
+            <span class="font-medium">LinkedIn</span>
+          </a>
+
+          <a
+            href="https://www.facebook.com/subhash.shegokar/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="contact-link flex items-center gap-3 hover:text-indigo-600 transform hover:scale-105 transition-all duration-300"
+          >
+            <i class="fab fa-facebook text-2xl"></i>
+            <span class="font-medium">Facebook</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      // JSON data
+      const artistData = {
+        "gallery_categories": [
+          "Available Paintings",
+          "Acrylic and Oil",
+          "Black and White",
+          "Water Colour",
+          "Portraits",
+          "Devotional"
+        ],
+        "exhibitions": [
+          "Monsoon Show 2005 at Bajaj Art Gallery",
+          "Chatak Show 2005 at Nehru Centre, Worli",
+          "Chatak Show 2008 at Nehru Centre, Worli",
+          "Sanskar Bharti Show 2005 at Nehru Centre",
+          "Group Show at Nehru Centre - Circular Art Gallery, 2007",
+          "Art Plaza - January 2008",
+          "Art Plaza - March 2009",
+          "Group Show at Nitaai Gauras Art Gallery, February 2008",
+          "Fusion Show at Nehru Centre, Worli, February 2009",
+          "Bombay Art Society’s Annual Show 2009",
+          "26/11 Group Show at Nehru Centre, March 2009",
+          "4x4 Group Show at Thane Kala Bhavan, April 2009",
+          "AC Art Gallery at Nehru Centre, April 13–19, 2010",
+          "Fusion Show at Nehru Centre, May 2011",
+          "Expressions Show at Nehru Centre Art Gallery, April 2010",
+          "Mumbai Mari Jaan Group Show at Nehru Centre, January 2011",
+          "Art for Living 2011 at Prince of Wales Museum Art Gallery, Mumbai (Airawat Art Gallery, Cancer Aid & Research Foundation)",
+          "Trident Art Walk Gallery at Oberoi, Nariman Point, Mumbai, January 2012",
+          "3 + 1 Group Show at Nehru Centre, April 2012",
+          "Jaipur International Art Festival, 2013",
+          "Bhuj Camp, Gujarat, 2014",
+          "Jaipur International Art Festival, 2014",
+          "Gita Kala Parv Camp, Kurukshetra, December 2016",
+          "Shourya Art Camp at West Zone Culture Centre, Udaipur, March 2021",
+          "Solo Show at Jahangir Art Gallery, Mumbai, September 2024",
+          "WAC Art Expo, Mumbai, March 2025",
+          "Chatak Show 2025 at Nehru Centre Art Gallery, Worli, Mumbai"
+        ],
+        "contact": {
+          "phone": "8652842802",
+          "email": "subhashshegokar65@gmail.com",
+          "instagram": "https://www.instagram.com/subhashshegokar/",
+          "linkedin": "https://in.linkedin.com/in/subhash-shegokar-b7b1aa31",
+          "facebook": "https://www.facebook.com/subhash.shegokar/"
+        }
+      };
+
+      // Gallery data structure - Replace with your actual image filenames
+      const galleryData = {
+        "Acrylic and Oil": [
+          "IMG-20200117-WA0087.jpg",
+          "IMG-20200117-WA0092.jpg",
+          "IMG_20220805_204145.jpg",
+          "IMG_20240711_033227.jpg",
+          "IMG_20240712_224425.jpg",
+          "IMG_20240715_181234.jpg",
+          "IMG_20240803_203236.jpg",
+          "IMG_20240813_003934.jpg",
+          "IMG_20240818_011250.jpg",
+          "IMG_20240823_165935.jpg",
+          "IMG_20240825_011254.jpg",
+          "IMG_20240901_201840.jpg",
+          "IMG_20240908_141609.jpg",
+          "WhatsApp Image 2025-07-07 at 21.54.09_5865bdc0.jpg",
+          "WhatsApp Image 2025-07-07 at 21.54.09_8f5ccceb.jpg",
+          "WhatsApp Image 2025-07-07 at 22.02.20_029a1cfe.jpg",
+        ],
+        "Available Paintings": [
+          "Badlapur 14 X 14 inch Acryalic in Canvas.jpg",
+          "Banaras 1 size 14 X 14 inch acryalic on canvas.jpg",
+          "Banaras 2 Size 14 X 14 inch Acryalic on Canvas.jpg",
+          "Banaras Ghat 1 14X14 inch Acrylic on Canvas.jpg",
+          "Banaras Ghat 2      14 X14 inch  Acryalic on canvas.jpg",
+          "Ganga Size 24 X 30 inch Acralic in Canvas.jpg",
+          "Ganpati size 24 X 30 inch Acryalic on canvas.jpg",
+          "Kokan Size 14 X 14 inch Acryalic on Canvas.jpg",
+          "Mahuli Satara Size 24 X 30 inch Acryalic on Canvas.jpg",
+          "Matheran Size 24 X 30 inch Acryalic on Canvas.jpg",
+          "Rajshthani woman painting size 17X18 inch Acryalic on Canvas.jpg",
+          "Rajsthan Size 30X30 inch Acryalic on Canvas.jpg",
+          "Ratnagiri Size 15 X 25 inch Acryalic in Canvas.jpg",
+          "Shephard Painting Size 17 inch X18 Inch Acryalic on Canvas.jpg",
+          "Shivmandir size 24 X 30 Inche Acryalic on canvas.jpg",
+        ],
+        "Black and White": [
+          "IMG-20200117-WA0049.jpg",
+          "IMG-20200117-WA0051 - Copy.jpg",
+          "IMG-20200117-WA0055.jpg",
+          "IMG-20200117-WA0058.jpg",
+          "IMG-20200117-WA0068.jpg",
+          "IMG-20200117-WA0074.jpg",
+          "IMG-20200117-WA0091.jpg",
+          "IMG-20200117-WA0093.jpg",
+          "IMG_20230115_213957_143.jpg",
+          "Mahamanav.jpg",
+          "WhatsApp Image 2025-06-19 at 23.03.08_18de5f08.jpg",
+          "WhatsApp Image 2025-07-07 at 21.46.35_bd4d660a.jpg",
+        ],
+        "Devotional": [
+          "IMG-20191008-WA0006.jpg",
+          "IMG-20200117-WA0053.jpg",
+          "IMG-20200117-WA0067.jpg",
+          "IMG-20200117-WA0075.jpg",
+          "IMG-20200117-WA0085.jpg",
+          "IMG-20200117-WA0086.jpg",
+          "IMG-20200117-WA0094.jpg",
+          "IMG-20240910-WA0016.jpg",
+          "SAVE_20211003_100508.jpg",
+          "WhatsApp Image 2025-07-07 at 21.43.52_978e5ca6.jpg",
+          "WhatsApp Image 2025-07-07 at 21.54.09_ded929c6.jpg",
+          "WhatsApp Image 2025-07-07 at 21.55.26_641bf473.jpg",
+          "WhatsApp Image 2025-07-07 at 22.27.12_10e2818c.jpg",
+          "WhatsApp Image 2025-07-07 at 22.27.12_5bb2553d.jpg",
+          "WhatsApp Image 2025-07-07 at 22.27.12_92c3f134.jpg",
+          "WhatsApp Image 2025-07-07 at 22.27.12_ea448995.jpg",
+        ],
+        Portraits: [
+          "IMG-20200117-WA0073.jpg",
+          "IMG-20200117-WA0076.jpg",
+          "IMG-20211003-WA0003.jpg",
+          "IMG-20220225-WA0013.jpg",
+          "IMG-20221201-WA0009.jpg",
+          "IMG_20220726_195242_966.jpg",
+          "IMG_20230220_220500.jpg",
+          "Mahesh Bobhate.jpg",
+          "SAVE_20211003_100538.jpg",
+          "SAVE_20211113_114525.jpg",
+        ],
+        "Water Colour": [
+          "1676396913925.jpg",
+          "20221211_140604.jpg",
+          "20230108_172736.jpg",
+          "IMG-20200117-WA0062.jpg",
+          "IMG-20200117-WA0072.jpg",
+          "IMG-20200117-WA0084.jpg",
+          "IMG_20230409_164518_601.jpg",
+          "WhatsApp Image 2025-07-07 at 21.45.17_533a9d17.jpg",
+          "WhatsApp Image 2025-07-07 at 22.04.38_b0cdb5b6.jpg",
+          "WhatsApp Image 2025-07-07 at 22.04.38_b9b025f5.jpg",
+          "WhatsApp Image 2025-07-07 at 22.04.39_44da1789.jpg",
+          "WhatsApp Image 2025-07-07 at 22.04.40_9c15afbc.jpg",
+        ],
+      };
+
+      // Function to create category cards
+      function createCategoryCards() {
+        const categoryContainer = document.getElementById("categoryContainer");
+        categoryContainer.innerHTML = ""; // Clear existing content
+
+        artistData.gallery_categories.forEach((category, index) => {
+          // Use galleryData for image paths
+          const firstImage = galleryData[category] && galleryData[category].length > 0 ? galleryData[category][0] : null;
+          // Updated: Add 'assets/' prefix to image URLs
+          const imageUrl = firstImage ? `assets/Gallery/${category}/${firstImage}` : "";
+          const hasImages = firstImage !== null;
+
+          const cardHtml = `
+            <div class="category-card fade-in stagger-${
+              (index % 4) + 1
+            } bg-white/80 backdrop-blur-sm rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer border border-gray-100"
+                 onclick="openCategory('${category}')">
+              <div class="relative w-full h-64 overflow-hidden rounded-t-xl">
+                ${
+                  hasImages
+                    ? `<img src="${imageUrl}" alt="${category} Cover" class="w-full h-full object-cover transition-transform duration-300" onerror="this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');">
+                       <div class="image-placeholder hidden">
+                         <i class="fas fa-image text-5xl mb-3"></i>
+                         <p class="text-sm font-medium">No Image</p>
+                       </div>`
+                    : `<div class="image-placeholder">
+                         <i class="fas fa-image text-5xl mb-3"></i>
+                         <p class="text-sm font-medium">No Image</p>
+                       </div>`
+                }
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
+                <div class="category-content">
+                  <h3 class="text-2xl font-bold mb-2">${category}</h3>
+                  <p class="text-sm text-gray-200">
+                    ${
+                      category === "Available Paintings"
+                        ? "Current works available for purchase"
+                        : category === "Acrylic and Oil"
+                        ? "Rich textures and vibrant colors"
+                        : category === "Black and White"
+                        ? "Timeless monochrome expressions"
+                        : category === "Water Colour"
+                        ? "Fluid and ethereal compositions"
+                        : category === "Portraits"
+                        ? "Capturing human essence and emotion"
+                        : category === "Devotional"
+                        ? "Sacred art and spiritual themes"
+                        : ""
+                    }
+                  </p>
+                </div>
+              </div>
+            </div>
+          `;
+          categoryContainer.insertAdjacentHTML("beforeend", cardHtml);
+        });
+
+        // Re-observe for fade-in animations after dynamic content is added
+        document.querySelectorAll(".fade-in").forEach((el) => {
+          observer.unobserve(el); // Stop observing if already observed
+          observer.observe(el);
+        });
+      }
+
+      // Gallery functions
+      function openCategory(categoryName) {
+        const categoryContainer = document.getElementById("categoryContainer");
+        const imageGridContainer = document.getElementById("imageGridContainer");
+        const imageGrid = document.getElementById("imageGrid");
+        const categoryTitle = document.getElementById("categoryTitle");
+
+        categoryContainer.classList.add("hidden");
+        imageGridContainer.classList.remove("hidden");
+        imageGrid.innerHTML = ""; // Clear previous images
+        categoryTitle.textContent = categoryName;
+
+        const images = galleryData[categoryName];
+        if (images && images.length > 0) {
+          images.forEach((imageName, index) => {
+            // Updated: Add 'assets/' prefix to image URLs
+            const imageUrl = `assets/Gallery/${categoryName}/${imageName}`;
+            const imageHtml = `
+                <div class="image-item relative rounded-lg overflow-hidden shadow-md bg-white/80 backdrop-blur-sm cursor-pointer transition-all duration-300 transform hover:scale-105"
+                     onclick="openLightbox('${imageUrl}', 'Artwork from ${categoryName}')">
+                    <img src="${imageUrl}" alt="Artwork ${index + 1}" class="w-full h-48 object-cover rounded-lg"
+                         onerror="this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');">
+                    <div class="image-placeholder hidden">
+                        <i class="fas fa-image text-4xl mb-2"></i>
+                        <p class="text-xs font-medium">Image Error</p>
+                    </div>
+                    <div class="hover-icon absolute inset-0 flex items-center justify-center bg-black/40 text-white text-3xl opacity-0 transition-opacity duration-300">
+                        <i class="fas fa-expand"></i>
+                    </div>
+                </div>
+            `;
+            imageGrid.insertAdjacentHTML("beforeend", imageHtml);
+          });
+        } else {
+          imageGrid.innerHTML = `
+                <div class="col-span-full text-center py-10 text-gray-500">
+                    <p class="text-xl font-medium">No images found for this category yet.</p>
+                </div>
+            `;
+        }
+        document.getElementById("gallery").scrollIntoView({ behavior: "smooth" });
+      }
+
+      function closeCategory() {
+        document.getElementById("categoryContainer").classList.remove("hidden");
+        document.getElementById("imageGridContainer").classList.add("hidden");
+        document.getElementById("gallery").scrollIntoView({ behavior: "smooth" });
+      }
+
+      // Lightbox functions
+      const lightbox = document.getElementById("lightbox");
+      const lightboxImage = document.getElementById("lightboxImage");
+      const lightboxCaption = document.getElementById("lightboxCaption");
+
+      function openLightbox(imageUrl, caption) {
+        lightboxImage.src = imageUrl;
+        lightboxCaption.textContent = caption;
+        lightbox.classList.remove("hidden");
+        document.body.classList.add("overflow-hidden"); // Prevent scrolling when lightbox is open
+      }
+
+      function closeLightbox() {
+        lightbox.classList.add("hidden");
+        lightboxImage.src = ""; // Clear image src
+        lightboxCaption.textContent = ""; // Clear caption
+        document.body.classList.remove("overflow-hidden"); // Re-enable scrolling
+      }
+
+      // Event listener for closing lightbox on escape key
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && !lightbox.classList.contains("hidden")) {
+          closeLightbox();
+        }
+      });
+
+      // Timeline Data Generation
+      function createExhibitionsTimeline() {
+        const timeline = document.getElementById("timeline");
+        timeline.innerHTML = ""; // Clear existing content
+
+        const exhibitions = artistData.exhibitions.map(event => {
+            const match = event.match(/(\d{4})/);
+            const year = match ? parseInt(match[1]) : 0; // Extract year, default to 0 if not found
+            return { year: year, description: event };
+        }).sort((a, b) => a.year - b.year); // Sort by year ascending
+
+        exhibitions.forEach((event, index) => {
+          const year = event.year > 0 ? event.year : 'N.D.'; // Display 'N.D.' for No Date
+          const description = event.description;
+          const positionClass = index % 2 === 0 ? "left" : "right"; // Alternate left/right
+
+          const timelineItemHtml = `
+                <div class="timeline-item ${positionClass}">
+                    <div class="timeline-content">
+                        <div class="timeline-year-text">${year}</div>
+                        <p class="timeline-description-text">${description}</p>
+                    </div>
+                </div>
+            `;
+          timeline.insertAdjacentHTML("beforeend", timelineItemHtml);
+        });
+
+        // Add intersection observer to timeline items for fade-in effect
+        document.querySelectorAll(".timeline-item").forEach((el) => {
+          timelineObserver.observe(el);
+        });
+      }
+
+
+      // Intersection Observer for fade-in animations
+      const observerOptions = {
+        root: null,
+        rootMargin: "0px",
+        threshold: 0.1, // Element is 10% visible
+      };
+
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target); // Stop observing once visible
+          }
+        });
+      }, observerOptions);
+
+      // Specific observer for timeline items to stagger them
+      const timelineObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      }, observerOptions);
+
+
+      // Initialize on DOMContentLoaded
+      document.addEventListener("DOMContentLoaded", () => {
+        createCategoryCards();
+        createExhibitionsTimeline();
+        // Observe all fade-in elements
+        document.querySelectorAll(".fade-in").forEach((el) => {
+          observer.observe(el);
+        });
+      });
+    </script>
+  </body>
+</html>
